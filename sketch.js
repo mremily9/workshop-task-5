@@ -5,14 +5,14 @@ let gamePic = [ ];
 
 function preload(){
   //table details 
-  table = loadTable('/Assets/games.csv', 'csv', 'header');
+  table = loadTable('Assets/games.csv', 'csv', 'header');
 
   //pictures import for games 
-  gamePic[0] = loadImage('/Assets/bloons.jpg');
-  gamePic[1] = loadImage('/Assets/p5r.jpg');
-  gamePic[2] = loadImage('/Assets/p4g.jpg');
-  gamePic[3] = loadImage('/Assets/kh1.5.jpg');
-  gamePic[4] = loadImage('/Assets/balatro.jpg');
+  gamePic[0] = loadImage('Assets/bloons.jpg');
+  gamePic[1] = loadImage('Assets/p5r.jpg');
+  gamePic[2] = loadImage('Assets/p4g.jpg');
+  gamePic[3] = loadImage('Assets/kh1.5.jpg');
+  gamePic[4] = loadImage('Assets/balatro.jpg');
 }
 
 function setup() { // bar graph
