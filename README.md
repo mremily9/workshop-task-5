@@ -56,7 +56,7 @@ At this point, I was a bit stumped; having followed the workshop video, I wonder
 
 ![image](https://github.com/user-attachments/assets/6af87a26-f9d0-4319-bc18-0a58af5abe01)
 
-After editing my code multiple times, double checking my code with the one in the workshop video.
+After editing my code multiple times, I checked my code with the one in the workshop video.
 However, soon after I had found the problem. 
 
 Looking back into my .csv file to then reference it back to the code I had written, I had saw that the .csv file had an empty first row. 
@@ -67,7 +67,7 @@ After editing this .csv file so that the first row wasn't empty, my bar graph sh
 
 ![image](https://github.com/user-attachments/assets/53531e91-ba53-4d1e-8108-4dac652311a8)
 
-However currently they werent fitting within my canvas according to my own data, and so I played arounhd with the integers within the these two functions - gameLabels() and showHours() to change them. 
+However, currently, they weren't fitting within my canvas according to my own data, so I played around with the integers within these two functions - gameLabels() and show hours () to change them. 
 
 ```
 function gameLabels() {
@@ -87,13 +87,13 @@ function showHours(){
     rect(30 + x * 60, 320, 30, -hours * 1);
 ```
 
-Leading to the bar graph showing - problem fixed! 
+Leading to the bar graph showing - the problem is fixed! 
 
 ![image](https://github.com/user-attachments/assets/813b68f6-3e3c-48d0-a22b-48c8e2cdfafe)
 
 **Displaying information in the bar graph**
 
-I then wanted to have the bar graph go in the other way, horizontally instead of vertically. To do this I changed around the x and y within the previous gameLabels() and showHours() functions.
+I then wanted to have the bar graph go in the other way, horizontally instead of vertically. To do this, I changed around the x and y within the previous gameLabels(), and showHours() functions.
 
 ```
 function gameLabels() {
@@ -126,11 +126,11 @@ I then added red text of the hours for each game within the showHours() to help 
 ![image](https://github.com/user-attachments/assets/4f81d1c0-9a10-47c6-a692-721710e96038)
 
 
-Here I started to get stumped, thikning that the spacing wasn't correct. I looked into sketching this out so that it made sense to me. 
+Here, I started to get stumped, thinking that the spacing wasn't correct. I looked into sketching this out so that it made sense to me. 
 
 ![image](https://github.com/user-attachments/assets/000b3025-4aca-40c7-874b-53e1a781dfb3)
 
-However I found out the problem was that the hours werent being added like a number - they were being added like a string. Adding a int() helped fix this issue. 
+However, I found out the problem was that the hours weren't being added like a number - they were being added like a string. Adding a int() helped fix this issue. 
 
 ![image](https://github.com/user-attachments/assets/8698f5fe-7115-42ba-9872-ec88a8cfa935)
 
@@ -169,13 +169,13 @@ function hoursLabel(){
 }
 ```
 
-I looked into using line() to create the bottom line and dashes for the x axis 
+I looked into using line() to create the bottom line and dashes for the X-axis 
 
 ![image](https://github.com/user-attachments/assets/f9d5cf74-a803-46a4-a2fd-1d6a96b548a3)
 
 ![image](https://github.com/user-attachments/assets/ee5ee370-213b-4aa6-a8b9-67cb7ef836d2)
 
-Implementing the following code wihtin the hoursLabel function
+Implementing the following code within the hoursLabel() function
 ```
  for (j = 0; j <= i+1; j++){
     let space = j * 20;
@@ -189,10 +189,78 @@ Implementing the following code wihtin the hoursLabel function
   text('Hours Played', 75, 370);
 ```
 
+I then loaded in my images and put then into the bar graph, importing the images of each game in an array. 
+
+![image](https://github.com/user-attachments/assets/9db98bf5-a869-4666-8380-cb97267f18c9)
+
+```
+let table;
+let gamePic = [ ];
+
+function preload(){
+  //table details
+  table = loadTable('/Assets/games.csv', 'csv', 'header');
+
+  //pictures import for games
+  gamePic[0] = loadImage('/Assets/bloons.jpg');
+  gamePic[1] = loadImage('/Assets/p5r.jpg');
+  gamePic[2] = loadImage('/Assets/p4g.jpg');
+  gamePic[3] = loadImage('/Assets/kh1.5.jpg');
+  gamePic[4] = loadImage('/Assets/balatro.jpg');
+}
+```
+
+![image](https://github.com/user-attachments/assets/048f8dcd-a66e-4ff2-bd5b-4e447d1e49a6)
+
+Using google to pick out an RGB colour for the bar graph I am done with the graph!
+
+![image](https://github.com/user-attachments/assets/9047bb3f-02b1-4faa-9342-285aeafa861c)
+
+**Visual representation of the data**
+
+I then looked into creating a somewhat more visual representation of the data - having each image of each game show up, the density of each game being relative to its hours played. 
+
+![image](https://github.com/user-attachments/assets/61c13c5d-8982-4f7e-a8d6-f27cfb48a965)
+
+I looked into making a new function for this; 
+
+```
+function animation() {
+  background(119, 166, 154);
+  let xpos = 0;
+  let ypos = 0;
+  for (x = 0; x < 5; x++){
+    let row = table.getRow(x);
+    let hours = row.get("HoursPlayed");
+
+    fill(0);
+    // text(game, 80, 30 + x * 60);
+
+    gamePic[x].resize(50, 50);
+    for(i= 0; i <hours/10; i++){
+      image(gamePic[x], xpos + random(0, width - 50), ypos + random(0, height - 50));
+    }
+  }
+}
+```
+
+And then implementing a setTimeout() function in the setup to call to this new function so that it would play after a bit to show the bar graph first
+
+```
+  setTimeout(animation, 3000);
+```
 
 **Final coding comments**
-
+- I had found this to be somewhat challenging at the start and as such I went with following the workshop code and examples first - which made me feel at ease, however due to this there are some times where I am following, but not fully reading/understanding the code itself.
+- I found great importance in planning in the project so that you do not waste time trying to figure something out that you didn't need
+- I had learnt about importing data with a csv file - but also the importance of checking the source data file to ensure that it is correct. 
 
 # Future development 
+- For any future development of this project I would like to make this second half like an animation (?) looking into making it less static and having them move or bounce around, allowing us to see more of the images incase some of them overlap each other.
+- Would liked to make this more like a recap - adding in more creative or fun text linking back to the data like mentioning how bloons was my top game and the time spent being equal to something else like maybe days etc
+
 
 # Reflection
+- Overall found this workshop to be interesting and learnt many things - csv files and data and importing them
+- The start of this project was hard given the purpose of creating a creative self-portrait with data - however, due to it, I was able to create this fun graph, which I found fun.
+
